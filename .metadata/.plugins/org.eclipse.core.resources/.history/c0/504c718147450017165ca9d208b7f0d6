@@ -1,0 +1,75 @@
+package com.niit.daoimpl;
+
+
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.niit.dao.SupplierDao;
+import com.niit.model.SupplierModel;
+
+
+public class SupplierDaoImpl implements SupplierDao
+{
+	 @Autowired
+	    SessionFactory sessionFactory;
+	    
+	    @SuppressWarnings("unchecked")
+	    
+
+
+	    public List<SupplierModel> getAllSupplier() {
+	        /*Session sf =sessionFactory.openSession();
+	        sf.beginTransaction();
+	        Query query = sf.createQuery("from Supplier");
+	        List<Supplier> list=query.list();
+	        System.out.println(list);
+	        sf.getTransaction().commit();*/
+	        return null;
+
+	    }
+
+	    public SupplierModel getSupplierDetails(String id) {
+	        SupplierModel s = sessionFactory.openSession().get(SupplierModel.class, id);
+	        return s;
+	    }
+
+	    public void updateCategoryDetail(SupplierModel obj) {
+	        // TODO Auto-generated method stub
+	        
+	    }
+
+	    public void addSupplier(SupplierModel obj) {
+	        Session i=sessionFactory.openSession();
+	        i.beginTransaction();
+	        i.save(obj);
+	        i.getTransaction().commit();
+	        i.close();
+	        // TODO Auto-generated method stub
+	        
+	    }
+
+	    public void deleteProduct(SupplierModel entity) {
+	        // TODO Auto-generated method stub
+	        
+	    }
+
+	    public List<SupplierModel> getAllCategories() {
+	        Session sf =sessionFactory.openSession();
+	        sf.beginTransaction();
+	        Query query = sf.createQuery("from SupplierModel");
+	        List<SupplierModel> slist=query.list();
+	        System.out.println(slist);
+	        sf.getTransaction().commit();
+	        return slist;
+	    }
+
+		public SupplierModel getSupplierDetails() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		
+
+	}

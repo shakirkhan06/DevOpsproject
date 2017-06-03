@@ -1,0 +1,19 @@
+package com.niit.dao;
+
+import java.util.List;
+
+import com.niit.model.CategoryModel;
+
+public interface CategoryDao {
+	//create 
+    
+ 	public void addCategory(CategoryModel categorys);
+	//read
+	public CategoryModel getId(int id);
+	//update
+	public void update(CategoryModel categorys);
+	//deleted
+	public void deleteById(int id);
+	//Get All
+	public List<CategoryModel> getAll();
+}

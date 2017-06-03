@@ -1,0 +1,62 @@
+package com.niit.daoimpl;
+
+
+import java.util.List;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.niit.dao.SupplierDao;
+import com.niit.model.SupplierModel;
+
+public class SupplierDaoImpl implements SupplierDao
+{
+	@Autowired
+	SessionFactory sessionFactory;
+		
+    public SupplierDaoImpl(SessionFactory sessionFactory) {
+    	this.sessionFactory=sessionFactory;
+	}
+    
+   
+
+ 
+
+ 
+	public List<SupplierModel> getAllSupplierDetails() {
+		Session session=sessionFactory.openSession();
+		List<SupplierModel> suppliers = null;
+				session.beginTransaction();
+				suppliers=	session.createQuery("from ProductDetails").list();
+				session.getTransaction().commit();
+        return suppliers;
+	}
+
+	/*public SupplierModel getSupplierDetail(String id) {
+		SupplierModel product = (SupplierModel) getCurrentSession().get(SupplierModel.class, id);
+
+        return product;
+	}
+
+	public void updateSupplierDetails(SupplierModel obj) {
+		getCurrentSession().update(obj);
+		
+	}*/
+
+	public void addSupplier(SupplierModel obj) {
+		Session session=sessionFactory.openSession();
+		session.beginTransaction();
+		session.persist(obj);
+		session.getTransaction().commit();
+	}
+/*
+	public void delete(SupplierModel entity) {
+		getCurrentSession().delete(entity);
+		
+	}
+*/
+	
+}

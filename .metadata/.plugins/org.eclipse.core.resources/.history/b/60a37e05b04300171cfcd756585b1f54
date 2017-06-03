@@ -1,0 +1,14 @@
+package com.niit.dao;
+
+import java.util.List;
+
+import com.niit.model.SupplierModel;
+
+public interface SupplierDao {
+	   public SupplierModel findSupplier(int sup_id);
+	   public List<SupplierModel> findAllSupplier();
+	   public void updateSupplier(SupplierModel sup);
+	   public void deleteSupplier(SupplierModel sup);
+	   public void deleteAllSupplier();
+	   public void addSupplier(SupplierModel sup);
+}

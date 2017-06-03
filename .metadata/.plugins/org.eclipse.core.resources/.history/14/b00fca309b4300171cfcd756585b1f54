@@ -1,0 +1,71 @@
+package com.niit.model;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name="CategoryTable")
+public class CategoryModel implements Serializable
+{
+
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name="categoryid")
+	private int categoryid;
+	private String categoryname;
+	@Column(name="setofproducts")
+	private Set<ProductsModel> setofproducts=new HashSet<ProductsModel>(0);
+	
+	
+	
+	
+	
+	public CategoryModel(int categoryid, String categoryname, Set<ProductsModel> setofproducts) {
+		super();
+		this.categoryid = categoryid;
+		this.categoryname = categoryname;
+		this.setofproducts = null;;
+	}
+	//defining the database column
+	public int getCategoryid() {
+		return categoryid;
+	}
+	public void setCategoryid(int categoryid) {
+		this.categoryid = categoryid;
+	}
+	
+	
+	@Column(name="categoryname")
+	public String getCategoryname() {
+		return categoryname;
+	}
+	public void setCategoryname(String categoryname) {
+		this.categoryname = categoryname;
+	}
+	
+	
+	//One category have multiple products
+	 @OneToMany(mappedBy="prodCategory", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+				public Set<ProductsModel> getSetofproducts() {
+			return setofproducts;
+		}
+		
+		public void setSetofproducts(Set<ProductsModel> setofproducts) {
+			this.setofproducts = setofproducts;
+		}
+	
+	
+	
+
+}

@@ -1,0 +1,105 @@
+package com.niit.daoimpl;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Repository;
+
+import com.niit.dao.SupplierDao;
+import com.niit.model.SupplierModel;
+//@Repository("supDao")
+public class SupplierDaoImpl implements SupplierDao {
+
+	private Session currentSession;
+	private Transaction currentTransaction;
+
+	public Session openCurrentSession() {
+		currentSession = getSessionFactory().openSession();
+		return currentSession;
+	}
+
+	public Session openCurrentSessionwithTransaction() {
+		currentSession = getSessionFactory().openSession();
+		currentTransaction = currentSession.beginTransaction();
+		return currentSession;
+	}
+
+	public void closeCurrentSession() {
+		currentSession.close();
+	}
+
+	public void closeCurrentSessionwithTransaction() {
+		currentTransaction.commit();
+		currentSession.close();
+	}
+
+	private static SessionFactory getSessionFactory() {
+
+		Configuration configuration = new Configuration().configure();
+		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder()
+				.applySettings(configuration.getProperties());
+		SessionFactory sessionFactory = configuration.buildSessionFactory(builder.build());
+		return sessionFactory;
+	}
+
+	public Session getCurrentSession() {
+		return currentSession;
+	}
+
+	public void setCurrentSession(Session currentSession) {
+		this.currentSession = currentSession;
+	}
+
+	public Transaction getCurrentTransaction() {
+		return currentTransaction;
+	}
+
+	public void setCurrentTransaction(Transaction currentTransaction) {
+		this.currentTransaction = currentTransaction;
+	}
+	@Override
+	public List<SupplierModel> findAllSupplier() {
+		List<SupplierModel> users = (List<SupplierModel>) getCurrentSession().createQuery("from SupplierTable").list();
+		return users;
+	}
+	public SupplierModel findSupplier(int sup_id){
+		SupplierModel users=(SupplierModel) getCurrentSession().get(SupplierModel.class, sup_id);
+
+		return users;
+	}
+	@Override
+	public void updateSupplier(SupplierModel objs) {
+		getCurrentSession().update(objs);
+
+	}
+	@Override
+	public void addSupplier(SupplierModel objs) 
+	{
+		getCurrentSession().save(objs);
+	}
+
+	@Override
+	public void deleteSupplier(SupplierModel objs) {
+		// TODO Auto-generated method stub
+		//mobilestores.remove(mobilestore);
+		getCurrentSession().delete(objs);
+	}
+	@Override
+	public void deleteAllSupplier() {
+		List<SupplierModel> entityList = findAllSupplier();
+		for (SupplierModel objs : entityList) {
+			deleteSupplier(objs);
+		}
+
+	}
+
+
+
+
+
+
+}

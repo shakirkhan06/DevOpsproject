@@ -1,0 +1,63 @@
+package com.niit.model;
+
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
+@Entity
+@Table(name="SupplierDetails",uniqueConstraints = {
+		@UniqueConstraint(columnNames = "supplier_Id")})
+public class SupplierModel implements Serializable {
+	 @Id
+	  @Column(name="supplier_Id")
+	  private Integer supplier_Id;
+	  @Column(name="supplier_Name")
+	  private String supplierName;
+	  @Column(name="supplier_products")
+	  @OneToMany(fetch = FetchType.LAZY, mappedBy = "prodId")
+	  private Set<ProductsModel> supplierproducts=new HashSet<ProductsModel>(
+				0);
+	  
+	  
+	  public SupplierModel()
+	  {
+		  
+	  }
+	  public SupplierModel(Integer supplierId,String supplierName,Set<ProductsModel> supplierproducts)
+	  {
+		  this.supplier_Id=supplierId;
+		  this.supplierName=supplierName;
+		  this.supplierproducts=supplierproducts;
+	  }
+	public Integer getSupplierId() {
+		return supplier_Id;
+	}
+	public void setSupplierId(Integer supplierId) {
+		this.supplier_Id = supplierId;
+	}
+	public String getSupplierName() {
+		return supplierName;
+	}
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+	public Set<ProductsModel> getSupplierproducts() {
+		return supplierproducts;
+	}
+	public void setSupplierproducts(Set<ProductsModel> supplierproducts) {
+		this.supplierproducts = supplierproducts;
+	}
+	
+}

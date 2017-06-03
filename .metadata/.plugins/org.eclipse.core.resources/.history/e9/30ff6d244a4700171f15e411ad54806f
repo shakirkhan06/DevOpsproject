@@ -1,0 +1,148 @@
++<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+ <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<head>
+	<meta charset="utf-8" />
+	<title>Spring Datatables</title>
+	
+	<link rel="stylesheet" href="./resources/css/bootstrap.min.css" type="text/css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="./resources/js/jquery.min.js"></script>
+	<script src="./resources/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./resources/css/jquery.dataTables.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+<jsp:include page="Header.jsp" />  
+<style>
+#addcat
+{
+ position: relative;
+        left:500px;
+width:500px;
+height:700px;
+/* display:none; */
+}
+
+#addsup
+{
+
+ position: relative;
+        left:500px;
+width:500px;
+height:700px;
+/* display:none; */
+}
+#addpro
+{
+
+ position: relative;
+        left:500px;
+width:500px;
+height:700px;
+
+/* display:none; */
+}
+</style>
+</head>
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#addcat").hide();
+    $("#addsup").hide();
+    $("#addpro").hide();
+
+    $("#cbuttonadd").click(function() {
+         $("#addcat").show();
+           $("#addsup").hide();
+           $("#addpro").hide();
+           
+    });
+    
+    $("#sbuttonadd").click(function() {
+       $("#addcat").hide();
+         $("#addsup").show();
+         $("#addpro").hide();
+  });
+    
+    $("#pbuttonadd").click(function() {
+       $("#addcat").hide();
+         $("#addsup").hide();
+         $("#addpro").show();
+  });
+    
+
+});
+</script>
+<body>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<div class="container">
+<div class="row">
+<h2>Edit Product Details</h2>
+<hr/>
+  <form action="product_update"  method="post"  enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="p_id">Product  ID :</label>
+      <input type="number" class="form-control" id="p_id" required  placeholder="Enter Product ID" name="p_id" value="${product.prodId}">
+    </div>
+    <div class="form-group">
+      <label for="p_name">Product Name :</label>
+      <input type="text" class="form-control" id="p_name" required placeholder="Enter Product Name " name="p_name" value="${product.prodName}">
+    </div>
+    <div class="form-group">
+      <label for="p_desc">Product Description :</label>
+      <input type="text" class="form-control" id="p_desc" required placeholder="Enter Product Description " name="p_desc"value="${product.prodDescription}" >
+    </div>
+    <div class="form-group">
+      <label for="p_price">Product Price :</label>
+      <input type="number" class="form-control" id="p_price" required placeholder="Enter Product Price " name="p_price"value="${product.prodPrice}" >
+    </div>
+    <div class="form-group">
+  <label class="col-md-4 control-label" for="c_id" >Select Category</label>
+  <div class="col-md-4">
+    <select id="c_id" class="form-control" name="c_id">
+      <c:forEach var="clist" items="${clist}">
+
+                <option value="${clist.categoryId}">${clist.categoryName}</option>
+
+            </c:forEach>
+    </select>
+  </div>
+</div>
+<br/>
+<br/>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="s_id" >Select Supplier</label>
+  <div class="col-md-4">
+    <select id="s_id" class="form-control" name="s_id">
+      <c:forEach var="slist" items="${slist}">
+
+                <option value="${slist.supplierId}">${slist.supplierName}</option>
+
+            </c:forEach>
+    </select>
+  </div>
+</div>
+<br/>
+<br/>
+<br/>
+
+<div class="form-group">
+      <label for="img">Upload Image:</label>
+      <input type="file" id="img" name="file">
+    </div>
+    <button type="submit" class="btn btn-primary" >Save</button>
+  </form>
+          
+           
+
+</div></div>
+	
+<jsp:include page="Footer.jsp" />  
+</body>
+</html>

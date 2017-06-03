@@ -1,0 +1,94 @@
+package com.niit.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.niit.dao.CategoryDao;
+import com.niit.dao.ProductsDao;
+import com.niit.dao.SupplierDao;
+import com.niit.model.CategoryModel;
+import com.niit.model.ProductsModel;
+import com.niit.model.SupplierModel;
+
+
+@Controller
+public class AddController {
+
+
+	@Autowired
+	CategoryDao cr;
+	@Autowired
+	SupplierDao sr;
+	@Autowired
+	ProductsDao pr;
+	@RequestMapping("/Adding")  
+	public ModelAndView showform(){  
+		return new ModelAndView("Adding");  
+	} 
+
+	@RequestMapping(value="/actionCat", method = RequestMethod.POST)
+	public ModelAndView addCategory(@RequestParam("cid") int cid, @RequestParam("cname") String cname) 
+	{
+
+
+		CategoryModel catmodel=new CategoryModel();
+		catmodel.setCategoryId(cid);
+		catmodel.setCategoryName(cname);
+
+		cr.addCategory(catmodel);
+		return new ModelAndView("Adding"); 
+
+	}
+
+	@RequestMapping(value="/actionSup", method = RequestMethod.POST)
+	public ModelAndView addSupplier(@RequestParam("sid") int sid, @RequestParam("sname") String sname) 
+	{
+		SupplierModel smodel=new SupplierModel();
+		smodel.setSupplierId(sid);;
+		smodel.setSupplierName(sname);
+
+		sr.addSupplier(smodel);
+		return new ModelAndView("Adding"); 
+	}
+	@RequestMapping(value="/actionPro", method = RequestMethod.POST)
+	public ModelAndView addProducts(@RequestParam("prodId") int prodId, @RequestParam("prodName") String prodName, @RequestParam("prodCategory") CategoryModel prodCategory, @RequestParam("prodCategory") SupplierModel prodSupplier, @RequestParam("prodPrice") int prodPrice, @RequestParam("prodQuantity") int prodQuantity) 
+	{
+	
+		ProductsModel prodmodel=new ProductsModel();
+		prodmodel.setProdId(prodId);
+		prodmodel.setProdName(prodName);
+		prodmodel.setProdCategory(prodCategory);
+		prodmodel.setProdSupplier(prodSupplier);
+		prodmodel.setProdPrice(prodPrice);
+		prodmodel.setProdQuantity(prodQuantity);
+
+		pr.addProducts(prodmodel);
+		return new ModelAndView("Adding"); 
+		
+
+	}
+	@RequestMapping("/actionPro")
+	public ModelAndView addProduct() 
+	{ 
+
+		List<CategoryModel> list=cr.getAllCategoryDetails();
+		//List<SupplierModel> slist=sr.getAllSupplierDetails();
+		ModelAndView mv = new ModelAndView("addProduct");
+		//System.out.println(list.get(0).getC_name());	
+	//	mv.addObject("slist", slist);
+		mv.addObject("clist", list);
+		return mv;
+	}
+
+	/*@RequestMapping(value="/CategoryList/categories")
+	public List<CategoryModel> listCategories() 
+	{	
+		 return pr.getAllCategoryDetails();
+	}*/
+}

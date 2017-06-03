@@ -1,0 +1,57 @@
+package com.niit.daoimpl;
+
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.niit.dao.ProductsDao;
+import com.niit.model.ProductsModel;
+@Repository
+public class ProductsDaoImpl implements ProductsDao {
+
+    
+    @Autowired
+    SessionFactory sessionFactory;
+    
+
+    @SuppressWarnings("unchecked")
+
+    public List<ProductsModel> getAllProdcutsDetails() {
+        Session session=sessionFactory.openSession();
+        List<ProductsModel> product=null;
+        session.beginTransaction();
+        product=session.createQuery("from ProductModel").list();
+        session.getTransaction().commit();
+        
+        return product;
+    }
+
+    public ProductsModel getCategoryDetail(String id) {
+    	ProductsModel p=(ProductsModel)sessionFactory.openSession().get(ProductsModel.class, id);
+
+        // TODO Auto-generated method stub
+        return p;
+    }
+
+    public void updateCategoryDetail(ProductsModel obj) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void addProducts(ProductsModel obj) 
+    {
+        System.out.println("Product Implementation");
+
+
+        Session s=sessionFactory.openSession();
+        s.beginTransaction();
+        s.save(obj);
+        s.getTransaction().commit();
+        s.close();
+        
+    }
+
+}

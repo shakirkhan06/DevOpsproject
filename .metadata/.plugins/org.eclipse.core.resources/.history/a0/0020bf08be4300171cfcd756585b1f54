@@ -1,0 +1,15 @@
+/**
+ * 
+ */
+$(document).ready( function () {
+	 var table = $('#categoryTable').DataTable({
+			"sAjaxSource": "categorys",
+			"sAjaxDataProp": "",
+			"order": [[ 0, "asc" ]],
+			"aoColumns": [
+			    { "mData": "categoryid"},
+		      { "mData": "categoryname" }
+		      
+							 
+			]
+	 });
