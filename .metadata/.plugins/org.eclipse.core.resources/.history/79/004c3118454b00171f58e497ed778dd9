@@ -1,0 +1,473 @@
+<<<<<<< HEAD
+<%@page import="com.niit.model.CategoryModel"%>
+<%@page import="com.niit.model.SupplierModel"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ShaMobile Store</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"	rel="stylesheet">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"	type="text/javascript"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"	type="text/javascript"></script>
+<script type="text/javascript" src="./resources/js/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script	src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js"	type="text/javascript"></script>
+<link	href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css"	rel="stylesheet" type="text/css" />
+<!-- dialog -->
+<style type="text/css">
+input[type=text], input[type=password] {
+	width: 100%;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline;
+	border: 1px solid #ccc;
+}
+
+button {
+	background-color: #e7e7e7;
+	color: black;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+}
+
+button:hover {
+	opacity: 0.8;
+}
+
+.cancelbtn {
+	width: auto;
+	padding: 10px 18px;
+	background-color: #e7e7e7;
+	color: black;
+}
+
+/* .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+} */
+.container1 {
+	width: 500px;
+	height: 350px;
+}
+#addcat {
+	position: relative;
+	left: 500px;
+	width: 500px;
+	height: 700px;
+	/* display:none; */
+}
+
+#addsup {
+	position: relative;
+	left: 500px;
+	width: 500px;
+	height: 700px;
+	/* display:none; */
+}
+
+#addpro {
+	position: relative;
+	left: 500px;
+	width: 500px;
+	height: 700px;
+
+	/* display:none; */
+}
+
+#pan {
+	position: absolute;
+	left: 10px;
+	top:250px;
+	display: inline;
+	width: 300px;
+	heigth: 400px;
+	border: 3px solid #05396B;
+	padding: 250px 150px;
+}
+
+#chead {
+	color: black;
+	position: absolute;
+	top: 20px;
+	left: 0px;
+}
+
+#shead {
+	color: black;
+	position: absolute;
+	top: 130px;
+	left: 0px;
+}
+
+#phead {
+	color: black;
+	position: absolute;
+	top: 220px;
+	left: 0px;
+}
+
+#cbuttonadd {
+	position: absolute;
+	top: 80px;
+	left: 0px;
+}
+
+#sbuttonadd {
+	position: absolute;
+	top: 185px;
+	left: 0px;
+}
+
+#pbuttonadd {
+	position: absolute;
+	top: 280px;
+	left: 0px;
+}
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0, 0, 0); /* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+}
+
+/* The Close Button */
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript">
+function myFunction() 
+{
+	if (window.confirm('Confirm Your Data Adding?'))
+	{
+	    alert('Your Data Successfully');
+	  
+	}
+	else
+	{
+	    die();
+	}
+}
+
+$(document).ready(function() {
+    $("#addcat").hide();
+    $("#addsup").hide();
+    $("#addpro").hide();
+
+    $("#cbuttonadd").click(function() {
+         $("#addcat").show();
+           $("#addsup").hide();
+           $("#addpro").hide();
+           
+    });
+    
+    $("#sbuttonadd").click(function() {
+       $("#addcat").hide();
+         $("#addsup").show();
+         $("#addpro").hide();
+  });
+    
+    $("#pbuttonadd").click(function() {
+       $("#addcat").hide();
+         $("#addsup").hide();
+         $("#addpro").show();
+  });
+    
+
+});
+</script>
+<jsp:include page="Header.jsp" />
+</head>
+<body>
+<div>
+<a href="supplierList">Supplier</a>
+<a href="categoryList">Category</a>
+<a href="productList">Product</a>
+<div id="pan" class="w3-container w3-white">
+		<h1 id="chead">Category</h1>
+		<button id="cbuttonadd">Add</button>
+		<br> <br>
+		<h1 id="shead">Supplier</h1>
+		<button id="sbuttonadd">Add</button>
+		<br> <br>
+		<h1 id="phead">Product</h1>
+		<button id="pbuttonadd">Add</button>
+	</div>
+	<div id="addcat">
+		<form id="myform" action="category">
+			<h2>Add Category</h2>
+			<div class="container1">
+				<label><b>Category Id</b></label> 
+				<input required type="text" name="cId" value="" style="width: 350px; display: block;"> 
+				<label><b>Category Name</b></label> 
+				<input required type="text" name="cn" value="" style="width: 350px; display: block;"> 
+				<!-- <input type="submit" value="Add">  -->
+				 <input type="submit" value="Add" class="btn btn-primary btn-md" onmouseleave="myFunction();">
+				<input type="submit" value="Cancel" class="btn btn-primary btn-md">
+			</div>
+		</form>
+	</div>
+	<div id="addsup">
+		<h2>Add Supplier</h2>
+		<form action="supplier" id="form_purge" name="form_purge">
+			<div class="container">
+				<label><b>Supplier Id</b></label> 
+				<input required type="text" name="sId" value="" style="width: 350px; display: block;"> 
+				<label><b>Supplier Name</b></label> 
+				<input required type="text" name="sn" value="" style="width: 350px; display: block;"> 
+				<!-- <input type="submit" value="Add">  -->
+				 <input type="submit" value="Add" class="btn btn-primary btn-md" onclick="myFunction();">
+				<input type="submit" value="Cancel" class="btn btn-primary btn-md">
+			</div>
+	</form>
+	</div>
+	<div id="addpro">
+		<h2>Add Product</h2>
+		<form action="product" method="post" enctype="multipart/form-data">
+
+			<div class="container">
+				<label><b>Product Id</b></label> 
+				<input required type="text" name="pId" value="" style="width: 350px; display: block;"> 
+				<label><b>Product Name</b></label> 
+				<input required type="text" name="pn" value="" style="width: 350px; display: block;">
+			    <label><b>Product Category</b></label> 
+			    <select style="width: 350px; display: block;" name="pc">
+					<option>Select Category</option>
+						<%
+                 		List<CategoryModel> clist=(List<CategoryModel>) request.getAttribute("clist");
+                			for(CategoryModel c : clist){
+                    			out.println("<option value='"+ c.getCategoryId() +"'>"+ c.getCategoryName() + "</option>");
+                			}
+                		%>
+				</select> 
+				<br> 
+				<label><b>Supplier Category</b></label> 
+				<select style="width: 350px; display: block;" name="psc">
+					<option>Select Supplier</option>
+					 <%
+                 		List<SupplierModel> slist=(List<SupplierModel>) request.getAttribute("slist");
+                			for(SupplierModel s : slist){
+                   				 out.println("<option value='"+ s.getSupplierId() +"'>"+ s.getSupplierName() + "</option>");
+                			}
+                
+            		 %>
+				</select> 
+				<br> 
+				<label><b>Product Price</b></label> 
+				<input required type="text" name="pp" value="" style="width: 350px; display: block;"> 
+				<label><b>Product Description</b></label> 
+				<textarea required rows="5" cols="50" name="pdes" value="" style="width: 350px; display: block;"></textarea> 
+				<label><b>Product Image</b></label> 
+				<input  type="file" name="file" value="fileupload" style="width: 350px; display: block;"> 
+				<!-- <input type="submit" value="Add">  -->
+				 <input type="submit" value="Add" class="btn btn-primary btn-md" onclick="myFunction();">
+				<input type="submit"  value="Cancel" class="btn btn-primary btn-md">
+			</div>
+
+		</form>
+	</div>
+</div>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<jsp:include page="Footer.jsp" />
+</body>
+</html>
+
+
+
+
+
+=======
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"ss>
+<title>AddCategory</title>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="panel panel-primary">
+<div class="panel-heading">
+  <!-- Header Content -->
+   <jsp:include page="Header.jsp"/>
+</div>
+<br>
+<br>
+<!-- LoginPage coding started -->
+<<<<<<< HEAD
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3">
+            <div class="form-login">
+            <form action="category">
+            <h4 style="font-family: monospace;font-style: italic;"><b>ADD CATEGORY</h4></b>
+            <input type="text" id="userName" class="form-control input-sm chat-input"  name="c_id"/>
+            </br>
+            <input type="text" id="userPassword" class="form-control input-sm chat-input"  name="c_name"/>
+            </br>
+            <div class="wrapper">
+            <span class="group-btn">     
+                <input type="submit" value="ADD" class="btn btn-primary btn-md"><i class="fa fa-sign-in"></i></a>
+                <a href="./index" class="btn btn-primary btn-md">BACK <i class="fa fa-sign-in"></i></a>
+            </span>
+            </div>
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- Loginpage coding finshed here -->
+    </div>
+
+    <!-- Loginpage coding finshed here -->
+    <!-- Supplier coding started -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-5 col-md-3">
+            <div class="form-login">
+            <form action="supplier">
+            <h4 style="font-family: monospace;font-style: italic;"><b>SUPPLIER DETAILS</h4></b>
+            <input type="text" id="supplierid" class="form-control input-sm chat-input" placeholder="EnterSupplierId" name="supplier_id"/>
+            </br>
+            <input type="text" id="suppliername" class="form-control input-sm chat-input" placeholder="EnterSupplierName" name="supplier_name"/>
+            </br>
+            <input type="text" id="supplierorder" class="form-control input-sm chat-input"  placeholder="EnterSupplierorders" name="supplier_order"/>
+            <div class="wrapper">
+            <span class="group-btn">     
+                <input type="submit" value="ADD" class="btn btn-primary btn-md"><i class="fa fa-sign-in"></i></a>
+                <a href="./index" class="btn btn-primary btn-md">BACK <i class="fa fa-sign-in"></i></a>
+            </span>
+            </div>
+            </div>
+        </form>
+        </div>
+    </div>
+=======
+            <form class="form-horizontal" action="actionCat" method="post">
+             <fieldset>
+
+<!-- Form Name -->
+<legend>Add Category</legend>
+                 <div class="form-group">
+  <label class="col-md-4 control-label" for="fn">Category Id</label>  
+  <div class="col-md-4">
+  <input id="cid" name="cid" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ln">Category Name</label>  
+  <div class="col-md-4">
+  <input id="cname" name="cname" type="text">
+    
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" value="addCat" class="btn btn-primary">Add</button>
+     <button id="submit" name="submit" value="cancelCat" class="btn btn-primary">Cancel</button>
+  </div>
+</div>
+</fieldset>
+ </form>
+    <form class="form-horizontal" action="actionSup" method="post">
+             <fieldset>
+
+<!-- Form Name -->
+<legend>Add Supplier</legend>
+                 <div class="form-group">
+  <label class="col-md-4 control-label" for="fn">Supplier Id</label>  
+  <div class="col-md-4">
+  <input name="sid" type="text" >
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="ln">Supplier Name</label>  
+  <div class="col-md-4">
+  <input name="sname" type="text" >
+    
+  </div>
+</div>
+<div class="form-group">
+  <label class="col-md-4 control-label" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" value="supAdd" class="btn btn-primary">Add</button>
+     <button id="submit" name="submit" value="supCancel" class="btn btn-primary">Cancel</button>
+  </div>
+</div>
+</fieldset>
+ </form>
+  </div>
+  </div>
+>>>>>>> dcbed4951c66b48e6b3723edeb078d8c08557db4
+
+ <!-- Footer Content -->
+ <jsp:include page="Footer.jsp" /> 
+<script>
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  	$('#myCarousel').carousel({
+	    interval: 1200
+	});
+    
+}
+//This is for Search Box
+$(document).ready(function(e){
+    $('.search-panel .dropdown-menu').find('a').click(function(e) {
+		e.preventDefault();
+		var param = $(this).attr("href").replace("#","");
+		var concept = $(this).text();
+		$('.search-panel span#search_concept').text(concept);
+		$('.input-group #search_param').val(param);
+	});
+});
+</script>
+</body>
+
+</html>
+>>>>>>> 0da11775b7a133cf40f5493264a76066ecdc3a00

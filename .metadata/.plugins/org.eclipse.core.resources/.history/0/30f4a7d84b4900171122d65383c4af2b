@@ -1,0 +1,157 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<head>
+<title>Sha Mobile Store</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	type="text/javascript"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+	<script>
+function sum() {
+      var txtFirstNumberValue = document.getElementById('txt1').value;
+      var txtSecondNumberValue = document.getElementById('txt2').value;
+      var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+      if (!isNaN(result)) {
+         document.getElementById('txt3').value = result;
+      }
+}
+</script>
+	<jsp:include page="Header.jsp" /> 
+</head>
+<body>
+<!-- <div class="container">
+	<div class="row">
+   <div class="col-xs-4 item-photo">
+                    <img style="max-width:100%;" src="./resources/images/p1.jpg" />
+                </div>
+                <div class="col-xs-5" style="border:0px solid gray">
+                    Datos del vendedor y titulo del producto
+                    <h3>Men Shoe Grey & Black </h3>    
+                    <h5 style="color:#337ab7">781 customer reviews <a href="#">adidas</a> · <small style="color:#337ab7">| 12 answered questions</small></h5>
+
+                    Precios
+                    <h6 class="title-price"><small>PRICE</small></h6>
+                    <h3 style="margin-top:0px;">2750</h3>
+
+                    Detalles especificos del producto
+                    <div class="section">
+                        <h6 class="title-attr" style="margin-top:15px;" ><small>COLOR</small></h6>                    
+                         <div>
+                            <div class="attr" style="width:25px;background:#5a5a5a;"></div>
+                            <div class="attr" style="width:25px;background:white;"></div>
+                        </div> 
+                    </div>
+                    
+                    
+                    <div class="section" style="padding-bottom:5px;">
+                        <h6 class="title-attr"><small>Size</small></h6>    
+                                        
+                         <div> 
+                        <br><br><br> <div class="attr2">9</div>
+                        </div> 
+                    </div>   
+                                     
+
+                    Botones de compra
+                    <div class="section" style="padding-bottom:25px;">
+                        
+                  <a href="./collectCustomerInfo" class="btn btn-info" role="button"  class="glyphicon glyphicon-shopping-cart" > Buy Now</a>
+                    </div>                                        
+                </div>                              
+   <div class="col-xs-9">
+                    <ul class="menu-items">
+                        <li class="active">Product Details </li>
+                        <li>Men Shoe Grey & Black</li>
+                        
+                    </ul>
+                    <div style="width:100%;border-top:1px solid silver">
+                        <p style="padding:15px;">
+                            <small>
+                            Stay connected either on the phone or the Web with the Shoe from Adidas. this Shoe stores precious photos and video and lets you upload them to a cloud or social network at blinding-fast move . With a 17-hour operating life from one charge, this phone allows you keep in touch even on the go. 
+
+                            With its built-in photo editor, the Adidas allows you to long life with the touch of a smooth handling, eliminating extraneous background items. Usable with most carriers, this product is the perfect companion for work or entertainment.
+                            </small>
+                        </p>
+                    </div>
+                </div>	 	
+	</div>
+</div> -->
+<br/>
+		 <div class="container-fluid">		
+			<div class="col-md-12 product-info">
+					<ul id="myTab" class="nav nav-tabs nav_tabs">
+						
+						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+						<!--  <li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
+						<li><a href="#service-three" data-toggle="tab">REVIEWS</a></li> -->
+						
+					</ul>
+				
+					
+				</div>
+				<hr>
+    <div class="container-fluid">
+    <div class="content-wrapper">	
+		<div class="item-container">	
+			<div class="container">	
+				<div class="col-md-12">
+					<div class="product col-md-3 service-image-left">
+                    <br>
+                    <br>
+						<center>
+							<!-- <img id="item-display" src="./resources/images/bookimage1.jpg" alt="" width="40%" height="30%"></img> -->
+							<img id="item-display" src="./resources/product/${product.p_image}" alt="" width="150" height="150"></img>
+						</center>
+					</div>
+					
+					
+				</div>
+					
+				<div class="col-md-7">
+				<div class="product-title">${product.productname}</div>
+				
+					<%-- <div class="product-desc">${product.p_description}</div> --%>
+					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+					<hr>
+					<form action="productdetails">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="hidden"  name="prodid" value="${product.productid}"  onkeyup="sum();"/><br><br>
+					ProductPrice:&nbsp;&nbsp;&nbsp;
+					<input type="text" id="txt1" name="prodprice" value="${product.productprice}" readonly onkeyup="sum();"/><br><br>
+					ProductQuantity:<input type="text" id="txt2" name="prodquantity" value="" onkeyup="sum();"/>
+					
+					TotalPrice:<input type="text"  id="txt3" name="pricetot" value=""/>
+					</div>
+					<div class="product-stock">In Stock</div>
+					<hr>
+					<div class="btn-group cart">
+						<input type="submit" class="btn btn-success" value="ADDCART"/>
+							
+					</div>
+					</form>
+					<!-- <div class="btn-group wishlist">
+						<button type="button" class="btn btn-danger">
+							Add to wishlist 
+						</button>
+					</div> -->
+				</div>
+			</div> 
+		
+			</div>
+		</div>
+		
+	</div>
+	
+
+
+<jsp:include page="Footer.jsp" />
+</body>
+</html>

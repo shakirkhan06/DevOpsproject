@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<head>
+<title>ShaMobile Store</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+	type="text/javascript"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	type="text/javascript"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
+	<script>
+function sum() {
+      var txtFirstNumberValue = document.getElementById('txt1').value;
+      var txtSecondNumberValue = document.getElementById('txt2').value;
+      var result = parseInt(txtFirstNumberValue) * parseInt(txtSecondNumberValue);
+      if (!isNaN(result)) {
+         document.getElementById('txt3').value = result;
+      }
+}
+</script>
+	<jsp:include page="Header.jsp" /> 
+</head>
+<body>
+	
+	   <div class="container-fluid">		
+			<div class="col-md-12 product-info">
+					<ul id="myTab" class="nav nav-tabs nav_tabs">
+						
+						<li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
+						<!--  <li><a href="#service-two" data-toggle="tab">PRODUCT INFO</a></li>
+						<li><a href="#service-three" data-toggle="tab">REVIEWS</a></li> -->
+						
+					</ul>
+				
+					
+				</div>
+				<hr>
+    <div class="container-fluid">
+    <div class="content-wrapper">	
+		<div class="item-container">	
+			<div class="container">	
+				<div class="col-md-12">
+					<div class="product col-md-3 service-image-left">
+                    <br>
+                    <br>
+						<center>
+							<img id="item-display" style="Height:250px;width:300px;" src="./resources/image/${product.proImage}" alt="Please Select Any Product" width="350" height="350"></img>
+						</center>
+					</div>
+					
+					
+				</div>
+					
+				<div class="col-md-7">
+					<div class="product-title">${product.prodName}</div>
+				
+					<div class="product-desc">${product.prodDescription}</div>
+					<div class="product-rating"><i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star gold"></i> <i class="fa fa-star-o"></i> </div>
+					<hr>
+					<form action="addCart" method="post">
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="hidden" required  name="id" value="${product.prodId}"  onkeyup="sum();"/><br><br>
+					ProductPrice:&nbsp;&nbsp;&nbsp;
+					<input type="text" id="txt1" name="prodprice" value="${product.prodPrice}" readonly onkeyup="sum();"/><br><br>
+					ProductQuantity:<input required type="text" id="txt2" name="q" value="" onkeyup="sum();"/>
+					
+					TotalPrice:<input required type="text"  id="txt3" name="pricetot" value=""/>
+					
+					<div class="product-stock">In Stock</div>
+					<hr>
+					<div class="btn-group cart">
+						<input type="submit" class="btn btn-success" value="ADDCART"/>
+							
+					</div>
+					
+					</form>
+				
+				</div>
+			</div> 
+		
+			</div>
+		</div>
+		
+	</div>
+<jsp:include page="Footer.jsp" />
+</body>
+</html>

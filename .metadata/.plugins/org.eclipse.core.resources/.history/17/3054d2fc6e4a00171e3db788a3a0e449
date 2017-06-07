@@ -1,0 +1,84 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+  <div class="container">
+
+        <div class="row">
+          <div class="col-xs-6 jumbotron"><!--1st column-->
+          <div class="head">
+            <h3><p class="mytext">Customer Details</p></h3>
+          </div>
+
+          <div class="outer">
+            <div class="well" style="width:100%">
+     <form action="${pageContext.request.contextPath}/checkoutAction"  method="post">
+            
+            <c:set var="srk2" value="0"></c:set>
+    <c:forEach var="c" items="${cart}">
+        <c:set var="srk2" value="${srk2 + c.cartPrice * c.cartQuantity }"></c:set>   
+                
+              </c:forEach>  
+			  Name: <label  id="custname"   style="width:70%" >${user.userName}</label><br><br>
+           Email:    <label id="emailid"   style="width:70%" >${user.userMailId}</label><br><br>
+             Phone:  <label  id="phoneid"  style="width:70%" >${user.userPhoneNo}</label><br><br>
+			Address:  <label  id="custaddress"   style="width:70%" >${user.userAddress}</label><br><br>
+           Total Amount:    <label  id="total"    style="width:70%" >${srk2}</label><br><br>
+                  
+                
+             <input type="hidden" name="totalprice" value="${srk2}" />
+             <input type="submit"  value="PROCEED" style="width:25%; font-size:20px;" class="btn btn-success">
+         </form>
+             
+              <!--  <div class="head">
+                  <h3><p class="mytext">Payment Options</p></h3>
+
+               </div>
+               <div class="inner well" style="width:100%;">card number
+
+                <div style="margin-top:10px">
+                  <h3 ><strong>Enter card details</strong>
+                  <img src="img/card_payment.jpg" style="height:40%;width:40%;">
+                </h3>
+                </div>
+                <div>
+                     <h5>Payment Mode</h5>
+                </div> -->
+
+<!-- <select name="payment">
+    <option value="COD">Cash on Delivery</option>
+    <option value="NetBanking">Net Banking</option>
+</select>
+ -->
+  <br>
+  <br>
+  
+                <!-- <input type="text" name="cardnum" placeholder="Enter your card number" style="width:70%"><br>
+                <br>
+                <input type="text" name="name" placeholder="Name on the card" style="margin-bottom:10px;width:70%"><br> -->
+                   
+              </div><!-- inner end card number-->
+              
+          </div>
+        </div>
+
+
+      </div><!--end of 1st column-->
+
+        
+
+
+
+
+      </div><!--end of row-->
+      
+      <div><br></div>
+
+
+</body>
+</html>

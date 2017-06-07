@@ -1,0 +1,114 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+</head>
+<body class="w3-container w3-gray">
+	<nav class="navbar navbar-default" >
+	<div  class="w3-container w3-red">
+
+		<div class="navbar-header" style="height:80px">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+							
+			<a class="navbar-brand" href="./">				
+				<img src='<c:url value="./resources/image/LogoNew.png" />' width="100px" height="75px" class="img-responsive"/>
+			</a>
+		</div>		
+		
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				
+				<li class="dropdown"><a style="color: white;" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+					aria-expanded="false">Product List<span class="caret"></span></a>
+					<ul class="dropdown-menu">
+       			<br>
+         		<c:forEach items="${clist}" var="p">
+         		<li><a href="productlistView?id=${p.categoryId}">${p.categoryName}</a></li>
+          		<br>
+       			</c:forEach>
+       			
+        		</ul>
+        		
+				</li>
+				<%-- <li><a href="<c:url value="/admin" />">Admin</a></li> --%>
+				<c:if test="${pageContext.request.userPrincipal.name  == 'admin@info.com'}">
+                          <li><a style="color: white;" href="<c:url value="add"/>" role="button" aria-haspopup="true"
+								aria-expanded="false">Create Product</a></li>      
+                 </c:if>
+                 				<c:if test="${pageContext.request.userPrincipal.name  == null}">
+                          <li><a style="color: white;" href="<c:url value="admin/add"/>" role="button" aria-haspopup="true"
+								aria-expanded="false">Create Product</a></li>      
+                 </c:if>
+					
+					
+			</ul>
+			
+			
+				<c:if test="${pageContext.request.userPrincipal.name  == 'admin'}">
+                                <li><a href="<c:url value="/admin" />">Admin</a></li>
+                 </c:if>
+                 </ul>
+			  <ul class="nav navbar-nav navbar-right">
+			  <c:if test="${pageContext.request.userPrincipal.name == null }">
+					<li>
+					<span id="sign" class="glyphicon glyphicon-user" style="color: white;top:40px;"></span>
+					<a style="color: white;" href=' <c:url value="/login" />'>Login</a>
+					</li><li>
+					<span id="sign" class="glyphicon glyphicon-user" style="color: white;top:40px;"></span>
+					<a style="color: white;" href='<c:url value="/reg" />'>SignUp</a></li>
+				
+				</c:if>
+				<c:if test="${pageContext.request.userPrincipal.name  != null}">
+                               <li><a style="color: white;top:40px;">Welcome: ${pageContext.request.userPrincipal.name}</a></li>
+	              				<li><a style="color: white;top:40px;" href='<c:url value="/logout" />'>Signout</a></li>
+                 </c:if>
+				
+				</ul>
+		</div>		
+	</div></nav>
+<div class="container-wrapper">
+    <div class="login-container">
+        <div id="login-box">
+ 
+            <h2>Login with Username and Password</h2>
+ 
+            <c:if test="${not empty msg}">
+                <div class="msg">${msg}</div>
+            </c:if>
+ 
+            <form name="loginForm" action="<c:url value="/admin" />" method="post">
+                <c:if test="${not empty error}">
+                    <div class="error" style="color: #ff0000;">${error}</div>
+                </c:if>
+                <div class="form-group">
+                    <label for="username">User: </label>
+                    <input required type="text" id="username" name="username" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input required type="password" id="password" name="password" class="form-control" />
+                </div>
+ 
+                <input type="submit" value="Submit" class="btn btn-default">
+ 				<c:if test="${pageContext.request.userPrincipal.name  == 'admin'}">
+                                <li><a href="<c:url value="/admin" />">Admin</a></li>
+                            </c:if>
+                            
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            </form>
+ 
+        </div>
+    </div>
+</div>
+<<jsp:include page="Footer.jsp" /> 
+</body>
+</html>

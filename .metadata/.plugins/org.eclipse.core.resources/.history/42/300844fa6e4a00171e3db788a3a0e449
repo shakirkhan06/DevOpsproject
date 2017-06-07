@@ -1,0 +1,67 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<table id="cart" class="table table-hover table-condensed ">
+			<thead>
+				<tr>
+					<th>Product Name</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Image</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+
+
+			<tbody>
+				<c:if test="${empty cartDetails}">
+					<tr>
+						<td colspan="9" align="center">No Record Exists</td>
+					</tr>
+				</c:if>
+				<c:forEach var="c" items="${cartDetails}">
+					<tr>
+
+						<td><c:out value="${productDetails.prodName}"></c:out></td>
+						<td><c:out value="${c.cartQuantity}"></c:out></td>
+						<td><c:out value="${c.cartPrice}"></c:out></td>
+
+
+
+
+
+						<td><img
+							src="./resources/images/<c:out value='${productDetails.pImage}'></c:out>"
+							height="50px" width="50px" /></td>
+
+						<td><c:out value="${c.cartQuantity * c.cartPrice}"></c:out></td>
+
+
+					</tr>
+				</c:forEach>
+
+
+			</tbody>
+			<tfoot>
+				<tr>
+					<td><a href="${pageContext.request.contextPath}/index"
+						class="btn btn-warning"><i class="fa fa-angle-left"></i>
+							Continue Shopping</a></td>
+
+					<td><a href="${pageContext.request.contextPath}/checkoutAction"
+						class="btn btn-success btn-block">Checkout <i
+							class="fa fa-angle-right"></i>
+					</a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>
